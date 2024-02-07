@@ -50,7 +50,7 @@ export default function Message() {
 
     const loadUserMessage =async ()=>{
         try{
-            const result=await axios.get("http://localhost:8080/messages/users?me="+userId.id, {
+            const result=await axios.get("http://localhost:8080/users?me="+userId.id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -125,7 +125,11 @@ export default function Message() {
                     style={{border:"none",width:"100%"}}
                      onClick={() => changeChat(m.id)}
                     >
-                    <img src={m.photoProfil} alt="avatar" />
+                    {m.photoProfil && m.photoProfil.includes("https:") ? (
+                        <img className="imgpic" src={m.photoProfil} alt="PDP" />
+                        ) : (
+                        <img className="imgpic" src="https://i.pinimg.com/736x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="PDP" />
+                    )}
                     <div class="about">
                     <div class="name">{m.nom}</div>
                     <div class="status">
@@ -141,8 +145,12 @@ export default function Message() {
     
     <div class="chat">
       <div class="chat-header clearfix">
-        <img src={userMes.photoProfil} alt="avatar" />
-    
+        
+      {userMes.photoProfil && userMes.photoProfil.includes("https:") ? (
+                        <img className="imgpic" src={userMes.photoProfil} alt="PDP" />
+                        ) : (
+                        <img className="imgpic" src="https://i.pinimg.com/736x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="PDP" />
+                    )}    
         <div class="chat-about">
           <div class="chat-with">{userMes.nom}</div>
           <div class="chat-num-messages">Messages</div>

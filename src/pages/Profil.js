@@ -1,3 +1,4 @@
+import '../assets/css/profil.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart, FaPhoneSquare } from 'react-icons/fa';
@@ -9,9 +10,11 @@ export default function Profil() {
     const token = localStorage.getItem('token');
     const userId = JSON.parse(user);
     const [annoncesEnVente, setAnnoncesEnVente] = useState([]);
+    const [demande, setDemande] = useState([]);
 
     useEffect(() => {
         loadAnnonceEnVente();
+        loadDemande();
     }, []);
 
     const loadAnnonceEnVente = async () => {
@@ -22,6 +25,19 @@ export default function Profil() {
                 },
             });
             setAnnoncesEnVente(result.data);
+        }catch(error){
+            console.log(error);
+            navigate('/login');    
+        }
+    };
+    const loadDemande = async () => {
+        try{
+            const result = await axios.get("http://localhost:8080/venteannonce/demande/"+userId.id, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setDemande(result.data);
         }catch(error){
             console.log(error);
             navigate('/login');    
@@ -94,10 +110,64 @@ export default function Profil() {
             navigate("/login");
         }
     };
+    const achat = async (e, idAnnonce, idVenteAnnonce, idUser) => {
+        e.preventDefault();
+        try {
+            const data = {
+                idAnnonce: idAnnonce,
+                idVenteAnnonce: idVenteAnnonce,
+                idUser: idUser
+            };
+            await axios.put("http://localhost:8080/annonces/sellApp", data, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error(error);
+            navigate("/login");
+        }
+    };    
+    const refus = async (e, idVenteAnnonce) => {
+        e.preventDefault();
+        try {
+            await axios.delete("http://localhost:8080/venteannonces/"+idVenteAnnonce, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
+            navigate("/login");
+        }
+    };
     
     return (
         <>
             <body>
+                <div className="demande">
+            <h1 style={{textAlign:'center',marginTop:'5px'}}> Demande d'achat: </h1>
+                <table>
+                    <tr>
+                        <th>Annonce</th>
+                        <th>Acheteur</th>
+                        <th>Prix</th>
+                        <th>Valider</th>
+                        <th>Refuser</th>
+                    </tr>
+                    {demande.map((dm, index) => (
+                        <tr key={index}>
+                            <td>N-{dm.annonce.idAnnonce} {dm.annonce.modele.marque.nom} {dm.annonce.modele.nom}</td>
+                            <td>{dm.acheteur.nom}</td>
+                            <td>{dm.annonce.prix.toLocaleString('en-US')} MGA</td>
+                            <td><button class="validate"
+                            onClick={(e) => achat(e, dm.annonce.idAnnonce,dm.idVenteAnnonce,dm.acheteur.id)}
+                            >Valider</button></td>
+                            <td><button class="reject"
+                            onClick={(e) => refus(e, dm.idVenteAnnonce)}
+                            >Refuser</button></td>
+                        </tr>
+                    ))}
+                </table>
+            </div>
             <h1 style={{textAlign:'center',marginTop:'5px'}}> Historique de mes annonces: </h1>
                 <div className="grid-container">
                     {annoncesEnVente.map((annonce, index) => (
@@ -112,13 +182,22 @@ export default function Profil() {
                         </div>
                         )}
                             <div className="car-owner">
+                               
+                            {annonce.annonce.proprietaire.photoProfil && annonce.annonce.proprietaire.photoProfil.includes("https:") ? (
                                 <img className="owner-avatar" src={annonce.annonce.proprietaire.photoProfil} alt="PDP" />
+                                ) : (
+                                <img className="owner-avatar" src="https://i.pinimg.com/736x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="PDP" />
+                            )}
                                 <div className="owner-info">
                                     <p className="owner-name">{annonce.annonce.proprietaire.nom}</p>
                                     <p className="owner-timestamp"> {annonce.annonce.date[2]} {months[annonce.annonce.date[1]-1]} {annonce.annonce.date[0]} {annonce.annonce.date[3]}:{annonce.annonce.date[4]}</p>
                                 </div>
                             </div>
-                            <img className="car-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="imageCAR" />
+                            {annonce.photos && annonce.photos.length > 0 && annonce.photos[0].lienPhoto ? (
+                                <img className="car-image" src={annonce.photos[0].lienPhoto} alt="imageCAR" />
+                            ) : (
+                                <img className="car-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="imageCAR" />
+                            )}
                             <div className="car-details">
                                 <h2>{annonce.annonce.modele.marque.nom} {annonce.annonce.modele.nom}</h2>
                                 <p>{annonce.annonce.description}</p>

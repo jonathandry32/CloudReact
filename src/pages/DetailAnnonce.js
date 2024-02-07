@@ -59,6 +59,7 @@ export default function DetailAnnonce() {
         }
         console.log(detailannonce);
         loadCategorie();
+        loadBuy();
     }, [detailannonce]);
 
     const loadDetailAnnonce = async () => {
@@ -89,6 +90,16 @@ export default function DetailAnnonce() {
             }
         });
         setCategorie(result.data);
+    }
+    const [isBuy, setBuy] = useState([]);
+    const loadBuy = async () => {
+        const idToUse = userId ? userId.id : 0;
+        const result = await axios.get("http://localhost:8080/auth/venteannonce/check?idAnnonce="+detailannonce.annonce.idAnnonce+"&&idUser="+idToUse, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        setBuy(result.data);
     }
     const onClickLiked = async (e, idAnnonce) => {
         e.preventDefault();
@@ -143,13 +154,30 @@ export default function DetailAnnonce() {
     <div class="dcar-details-page">
         
         <div class="dmain-image-container">
-            <img class="dmain-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="Voiture principale" />
+            {detailannonce.photos && detailannonce.photos.length > 0 && detailannonce.photos[0].lienPhoto ? (
+                <img class="dmain-image" src={detailannonce.photos[0].lienPhoto} alt="Voiture principale" />
+            ) : (
+                <img className="car-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="imageCAR" />
+            )}
         </div>
-
-        <div class="dcar-gallery">
-            <img class="dcar-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="Voiture 1" />
-            <img class="dcar-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="Voiture 2" />
-            <img class="dcar-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="Voiture 2" />
+        <div className="dcar-gallery">
+            {detailannonce.photos && detailannonce.photos.length > 0 ? (
+                detailannonce.photos.map((photo, index) => (
+                    <img
+                        key={index}
+                        className="dcar-image"
+                        src={photo.lienPhoto}
+                        alt="v1"
+                    />
+                ))
+            ) : (
+                <>
+                <img className="dcar-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="v1" />
+                <img className="dcar-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="v1" />
+                <img className="dcar-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="v1" />
+                <img className="dcar-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="v1" />
+                </>
+            )}
         </div>
         
         <div class="dcar-details">
@@ -160,7 +188,12 @@ export default function DetailAnnonce() {
             )}
             <h1>{detailannonce.annonce.modele.marque.nom} {detailannonce.annonce.modele.nom}</h1>
             <div class="downer-info">
-                <img class="downer-avatar" src={detailannonce.annonce.proprietaire.photoProfil} alt="Avatar" />
+                
+            {detailannonce.annonce.proprietaire.photoProfil && detailannonce.annonce.proprietaire.photoProfil.includes("https:") ? (
+                <img className="downer-avatar" src={detailannonce.annonce.proprietaire.photoProfil} alt="PDP" />
+                ) : (
+                <img className="downer-avatar" src="https://i.pinimg.com/736x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="PDP" />
+            )}
                 <div>
                     <p class="downer-name">{detailannonce.annonce.proprietaire.nom}</p>
                     <p class="downer-timestamp">{detailannonce.annonce.date[2]} {months[detailannonce.annonce.date[1]-1]} {detailannonce.annonce.date[0]} {detailannonce.annonce.date[3]}:{detailannonce.annonce.date[4]}</p>
@@ -172,11 +205,17 @@ export default function DetailAnnonce() {
             <p class="dcar-price">Prix: {detailannonce.annonce.prix.toLocaleString('en-US')} MGA</p>
             
             {detailannonce.annonce.status == 0 && detailannonce.annonce.proprietaire.id !== userId?.id ?(
+                isBuy.toString() === 'false' ? (
                 <button className="dbuy-button"
                 onClick={(e) => acheter(e, detailannonce.annonce.idAnnonce)}
                 >
                     Acheter
                 </button>
+                ):(
+                    <button className="dbuy-button">
+                        En cours de demande...
+                    </button>
+                )
             ):(
                 <p></p>
             )}

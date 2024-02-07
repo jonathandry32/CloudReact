@@ -237,13 +237,22 @@ export default function Home() {
                             </div>
                             )}
                             <div className="car-owner">
+               
+                            {annonce.annonce.proprietaire.photoProfil && annonce.annonce.proprietaire.photoProfil.includes("https:") ? (
                                 <img className="owner-avatar" src={annonce.annonce.proprietaire.photoProfil} alt="PDP" />
+                                ) : (
+                                <img className="owner-avatar" src="https://i.pinimg.com/736x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="PDP" />
+                            )}
                                 <div className="owner-info">
                                     <p className="owner-name">{annonce.annonce.proprietaire.nom}</p>
                                     <p className="owner-timestamp"> {annonce.annonce.date[2]} {months[annonce.annonce.date[1]-1]} {annonce.annonce.date[0]} {annonce.annonce.date[3]}:{annonce.annonce.date[4]}</p>
                                 </div>
                             </div>
-                            <img className="car-image" src="https://i.pinimg.com/564x/39/79/2b/39792bd2ceca6eef9004c1a989d651e1.jpg" alt="imageCAR" />
+                            {annonce.photos && annonce.photos.length > 0 && annonce.photos[0].lienPhoto ? (
+                                <img className="car-image" src={annonce.photos[0].lienPhoto} alt="imageCAR" />
+                            ) : (
+                                <img className="car-image" src="https://i.pinimg.com/736x/a4/2d/4b/a42d4ba0e127ea3f62026ace6803f94d.jpg" alt="imageCAR" />
+                            )}
                             <div className="car-details">
                                 <h2>{annonce.annonce.modele.marque.nom} {annonce.annonce.modele.nom}</h2>
                                 <p>{annonce.annonce.description}</p>
