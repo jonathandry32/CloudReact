@@ -6,19 +6,16 @@ body {
 }
 
 .dcar-details-page {
-    max-width: 750px;
+    max-width: 650px;
     margin: auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background-color:  var(--bgColor);
+    border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dcar-gallery {
     display: flex;
     overflow-x: auto;
-    border-bottom: 1px solid #ddd;
 }
 
 .dcar-image {
@@ -189,14 +186,38 @@ p {
 }
 
 .dstatusenvente {
-    color: #1cae1c; 
     font-size: 18px;
     font-weight: bold;
     float: right;
+    background-color: white;
+    padding: 10px;
 }
 .dstatusvendu {
-    color: #d61e1e; 
     font-size: 18px;
     font-weight: bold;
     float: right;
+    padding: 10px;
+    background-color: white;
+
+}
+
+.details-name{
+    color: var(--grayColor);
+    font-size: 14px;
+}
+
+.details-value{
+    color: var(--blackColor);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dannonceButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 0;
+    padding-left: 10px;
+    gap: 1.2rem;
+    width: 'max-content';
 }

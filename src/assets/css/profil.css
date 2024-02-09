@@ -1,9 +1,12 @@
+
 .demande table {
-    width: 80%;
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .demande th, td {
@@ -13,8 +16,9 @@
 }
 
 .demande th {
-    background-color: #4CAF50;
+    background-color: #419645;
     color: #fff;
+    text-align: center;
 }
 
 .demande tr:hover {

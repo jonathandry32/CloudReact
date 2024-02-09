@@ -1,27 +1,199 @@
+:root {
+  --primaryColor: #8E49A8;
+  --lightPrimary: #f4d6ff;
+  --blackColor: #000;
+  --grayColor: #A1A1A1;
+  --yellowColor: #fabd07;
+  --darkGrayColor: #434347;
+  --bgColor: #ededed;
+  --tabColor: #A6A6A6;
+  --greenColor: #7CC99A;
+}
+
 nav {
   display: flex;
-  border-bottom: 2px solid #f3f3f3;
+  /* border-bottom: 2px solid #b81515; */
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 0px;
   z-index: 999;
   position: fixed;
   top: 0;
   width: 100%;
+  height: 50px;
 }
 
-input {
-  padding: 12px 20px;
+.navLink {
+  color: #a0a0a0;
+  transition: all ease-in-out .4s;
+}
+
+.navLink.active {
+  color: rgb(0, 0, 0);
+}
+
+.nav-elements {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .7rem;
+}
+
+input,select {
+  padding: 5px 10px;
   border: none;
   background: #f7f6f6;
   outline: none;
   margin-right: 20px;
   border-radius: 5px;
-  width: 14rem;
+  width: 100%;
 }
 
 .nav-icons {
   width: 1.5rem;
   height: 1.5rem;
   margin-left: 1rem;
+}
+
+.button {
+  background-color: #333333;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 14px;
+  width: 'max-content';
+  color: #fff;
+  transition: all ease-in-out .3s;
+}
+
+.button:hover,
+.button-logout:hover,
+.button-contact:hover {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.button-logout .logout-icon {
+  transition: all ease-in-out .3s;
+}
+
+.button-logout:hover .logout-icon {
+  transform: translateX(5px);
+}
+
+.button-logout {
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+  background-color: #333333;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 'max-content';
+  color: #fff;
+  transition: all ease-in-out .3s;
+}
+.button-contact{
+  display: flex;
+  gap: 1rem;
+  text-decoration: none;
+  background-color: #333333;
+  padding: 10px 10px 10px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  width: 150px;
+  color: #fff;
+  transition: all ease-in-out .3s;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: row;
+  padding: 5px;
+  padding-left: 25px;
+  gap: 5px;
+  align-items: center;
+  background-color: #e7e7e7;
+  border-radius: 50px;
+  width: 40%;
+  padding-right: 20px;
+
+}
+
+.searchBarInput {
+  background-color: #e7e7e7;
+  width: 100%;
+  /* color: #333333; */
+  /* font-size: 20px; */
+  padding: 3px;
+}
+
+.searchBarInput::placeholder {
+  font-size: 15px;
+  color: #8f8f8f;
+}
+
+
+.searchBarIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background-color: transparent;
+  color: #474747;
+}
+
+/* Styles pour le conteneur de l'image de profil */
+.profilePdp {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Styles pour l'image de profil à l'intérieur du conteneur */
+.profilePdpImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Utilisez 'object-fit: cover;' pour s'assurer que l'image couvre complètement le conteneur */
+}
+
+/* Dropdown.css */
+.dropdown-container {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  border-radius: 10px;
+  background-color: #fff;
+  min-width: 200px;
+  padding: 10px;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+.dropdown-list {
+  list-style: none;
+  background-color: red;
+}
+
+.dropdown-list li {
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.menu-link {
+  padding: 5px 10px;
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
 }
