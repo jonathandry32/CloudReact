@@ -8,8 +8,8 @@ export default function Login() {
     let navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        mail: "admin@gmail.com",
-        password: "admin"
+        mail: "jett@gmail.com",
+        password: "jett"
     });
 
     const [errors, setErrors] = useState({
@@ -37,7 +37,7 @@ export default function Login() {
             const params = new URLSearchParams();
             params.append("mail", formData.mail);
             params.append("password", formData.password);
-            const result = await axios.post("http://localhost:8080/auth/login", params);
+            const result = await axios.post("https://ombaikamitadyws-production.up.railway.app/auth/login", params);
             localStorage.setItem('token', result.data.token);
             localStorage.setItem('user', JSON.stringify(result.data.userId));
             navigate("/");

@@ -23,7 +23,7 @@ export default function Message() {
         try {
             const params = new URLSearchParams();
             params.append("messages", message);
-            const result=await axios.post(`http://localhost:8080/message/${userId.id}/${id}`, params, {
+            const result=await axios.post(`https://ombaikamitadyws-production.up.railway.app/message/${userId.id}/${id}`, params, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -36,7 +36,7 @@ export default function Message() {
 
     const loadUser =async ()=>{
         try{
-            const result=await axios.get("http://localhost:8080/users/"+id, {
+            const result=await axios.get("https://ombaikamitadyws-production.up.railway.app/users/"+id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -50,7 +50,7 @@ export default function Message() {
 
     const loadUserMessage =async ()=>{
         try{
-            const result=await axios.get("http://localhost:8080/users?me="+userId.id, {
+            const result=await axios.get("https://ombaikamitadyws-production.up.railway.app/users?me="+userId.id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -66,11 +66,11 @@ export default function Message() {
     
     const loadMessages = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/messages?me="+userId.id+"&other="+id, {
+            const response = await axios.get("https://ombaikamitadyws-production.up.railway.app/messages?me="+userId.id+"&other="+id, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
-            }); 
+            });
             setMessages(response.data);
         } catch (error) {
             console.error('Error fetching details:', error);

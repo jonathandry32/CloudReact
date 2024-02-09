@@ -19,7 +19,7 @@ export default function Profil() {
 
     const loadAnnonceEnVente = async () => {
         try{
-            const result = await axios.get("http://localhost:8080/annonces/users/"+userId.id, {
+            const result = await axios.get("https://ombaikamitadyws-production.up.railway.app/annonces/users/"+userId.id, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -32,7 +32,7 @@ export default function Profil() {
     };
     const loadDemande = async () => {
         try{
-            const result = await axios.get("http://localhost:8080/venteannonce/demande/"+userId.id, {
+            const result = await axios.get("https://ombaikamitadyws-production.up.railway.app/venteannonce/demande/"+userId.id, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -59,7 +59,7 @@ export default function Profil() {
                 const params = new URLSearchParams();
                 params.append("idAnnonce", idAnnonce);
                 params.append("idUser", userId.id);
-                await axios.delete("http://localhost:8080/annoncefavoris/unlike", params, {
+                await axios.delete("https://ombaikamitadyws-production.up.railway.app/annoncefavoris/unlike", params, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -69,7 +69,7 @@ export default function Profil() {
                 const params = new URLSearchParams();
                 params.append("idAnnonce", idAnnonce);
                 params.append("idUser", userId.id);
-                await axios.post("http://localhost:8080/annoncefavoris", params, {
+                await axios.post("https://ombaikamitadyws-production.up.railway.app/annoncefavoris", params, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -86,7 +86,7 @@ export default function Profil() {
                 const params = new URLSearchParams();
                 params.append("idAnnonce", idAnnonce);
                 params.append("idUser", userId.id);    
-                await axios.delete("http://localhost:8080/annoncefavoris/unlike", {
+                await axios.delete("https://ombaikamitadyws-production.up.railway.app/annoncefavoris/unlike", {
                     params,
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -102,7 +102,7 @@ export default function Profil() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.post("http://localhost:8080/annoncefavoris", params, {
+            await axios.post("https://ombaikamitadyws-production.up.railway.app/annoncefavoris", params, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
@@ -118,7 +118,7 @@ export default function Profil() {
                 idVenteAnnonce: idVenteAnnonce,
                 idUser: idUser
             };
-            await axios.put("http://localhost:8080/annonces/sellApp", data, {
+            await axios.put("https://ombaikamitadyws-production.up.railway.app/annonces/sellApp", data, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
@@ -130,7 +130,7 @@ export default function Profil() {
     const refus = async (e, idVenteAnnonce) => {
         e.preventDefault();
         try {
-            await axios.delete("http://localhost:8080/venteannonces/"+idVenteAnnonce, {
+            await axios.delete("https://ombaikamitadyws-production.up.railway.app/venteannonces/"+idVenteAnnonce, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
