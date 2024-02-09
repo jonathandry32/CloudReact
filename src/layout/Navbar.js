@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { FaHome, FaEnvelope, FaHeart, FaUser, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
-import { FiHome, FiMessageCircle, FiUser, FiHeart, FiSearch } from "react-icons/fi";
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { FaHome, FaEnvelope, FaHeart, FaUser, FaSignOutAlt, FaSignInAlt, FaSearch } from 'react-icons/fa';
 import "../assets/css/Nav.css";
 import logo from "../assets/img/omby.png";
+import { FiHeart, FiHome, FiMessageCircle, FiSearch, FiUser } from 'react-icons/fi';
 
 export default function Navbar() {
   const user = localStorage.getItem('user');
   console.log(user);
   const token = localStorage.getItem('token');
+  const navigate = useNavigate();
   const userId = JSON.parse(user);
-
+  const redirectToMessage = () => {
+    try {
+      navigate(`/message/${userId.id}`);
+    }
+    catch (error) {
+      navigate('/login');
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
@@ -20,7 +28,6 @@ export default function Navbar() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +53,7 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div className="container-fluid">
           <img src={logo} alt="Logo" style={{ width: '40px', height: '40px', marginRight: '15px' }} />
-          <Link className="navbar-brand" to="/"></Link>
+          <Link className="navbar-brand" to="/">Ombaika-Mitady</Link>
 
           <div className="searchBar">
 
@@ -62,16 +69,18 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 nav-elements">
               <li className="nav-item"  >
-                <NavLink  className="navLink" to="/" activeClassName="active">
+                <NavLink className="navLink" to="/" activeClassName="active">
                   <FiHome size={20} />{' '}
                   <span className="link-text"></span>
                 </NavLink>
               </li>
-              <li className="nav-item"  >
-                <NavLink className="navLink" to="/message" activeClassName="active">
-                  <FiMessageCircle size={20} />{' '}
-                  <span className="link-text"></span>
-                </NavLink>
+              <li className="nav-item" >
+                {/* <NavLink className="navLink" to="/message" activeClassName="active"> */}
+                  <button className="navLink btnmessage" onClick={redirectToMessage}>
+                    <FiMessageCircle size={20} />
+                    <span className="link-text"></span>
+                  </button>
+                {/* </NavLink> */}
               </li>
               <li className="nav-item" >
                 <NavLink className="navLink" to="/favoris" activeClassName="active">
@@ -108,9 +117,6 @@ export default function Navbar() {
                     </div>
                   )}
                 </li>
-
-
-
               )}
             </ul>
           </div>
