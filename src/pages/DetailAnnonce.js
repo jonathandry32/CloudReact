@@ -67,7 +67,7 @@ export default function DetailAnnonce() {
     const loadDetailAnnonce = async () => {
         try {
             const idToUse = userId ? userId.id : 0;
-            const response = await axios.get(`http://localhost:8080/auth/annonces/details/${id}?idUser=` + idToUse, {
+            const response = await axios.get(`https://ombaikamitadyws-production-1616.up.railway.app/auth/annonces/details/${id}?idUser=` + idToUse, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -88,7 +88,7 @@ export default function DetailAnnonce() {
 
     const [categorie, setCategorie] = useState([]);
     const loadCategorie = async () => {
-        const result = await axios.get("http://localhost:8080/auth/modele/categories/" + detailannonce.annonce.modele.idModele, {
+        const result = await axios.get("https://ombaikamitadyws-production-1616.up.railway.app/auth/modele/categories/" + detailannonce.annonce.modele.idModele, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -98,7 +98,7 @@ export default function DetailAnnonce() {
     const [isBuy, setBuy] = useState([]);
     const loadBuy = async () => {
         const idToUse = userId ? userId.id : 0;
-        const result = await axios.get("http://localhost:8080/auth/venteannonce/check?idAnnonce=" + detailannonce.annonce.idAnnonce + "&&idUser=" + idToUse, {
+        const result = await axios.get("https://ombaikamitadyws-production-1616.up.railway.app/auth/venteannonce/check?idAnnonce=" + detailannonce.annonce.idAnnonce + "&&idUser=" + idToUse, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -112,7 +112,7 @@ export default function DetailAnnonce() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.delete("http://localhost:8080/annoncefavoris/unlike", {
+            await axios.delete("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris/unlike", {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -128,7 +128,7 @@ export default function DetailAnnonce() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.post("http://localhost:8080/annoncefavoris", params, {
+            await axios.post("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris", params, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
@@ -142,7 +142,7 @@ export default function DetailAnnonce() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.post("http://localhost:8080/annonces/demandeachat", params, {
+            await axios.post("https://ombaikamitadyws-production-1616.up.railway.app/annonces/demandeachat", params, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
@@ -174,7 +174,7 @@ export default function DetailAnnonce() {
             const params = new URLSearchParams();
             params.append("idAnnonce", detailannonce.annonce.idAnnonce);
             params.append("idUser", userId.id);
-            await axios.delete("http://localhost:8080/annoncefavoris/unlike", {
+            await axios.delete("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris/unlike", {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -189,7 +189,7 @@ export default function DetailAnnonce() {
             const params = new URLSearchParams();
             params.append("idAnnonce", detailannonce.annonce.idAnnonce);
             params.append("idUser", userId.id);
-            await axios.post("http://localhost:8080/annoncefavoris", params, {
+            await axios.post("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris", params, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
         } catch (error) {

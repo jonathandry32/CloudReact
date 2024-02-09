@@ -16,7 +16,7 @@ export default function Favoris() {
 
     const loadAnnonceEnVente = async () => {
         try {
-            const result = await axios.get("http://localhost:8080/annoncefavoris/users/" + userId.id, {
+            const result = await axios.get("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris/users/" + userId.id, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -43,7 +43,7 @@ export default function Favoris() {
                 const params = new URLSearchParams();
                 params.append("idAnnonce", idAnnonce);
                 params.append("idUser", userId.id);
-                await axios.delete("http://localhost:8080/annoncefavoris/unlike", params, {
+                await axios.delete("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris/unlike", params, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -53,7 +53,7 @@ export default function Favoris() {
                 const params = new URLSearchParams();
                 params.append("idAnnonce", idAnnonce);
                 params.append("idUser", userId.id);
-                await axios.post("http://localhost:8080/annoncefavoris", params, {
+                await axios.post("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris", params, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -70,7 +70,7 @@ export default function Favoris() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.delete("http://localhost:8080/annoncefavoris/unlike", {
+            await axios.delete("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris/unlike", {
                 params,
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -86,7 +86,7 @@ export default function Favoris() {
             const params = new URLSearchParams();
             params.append("idAnnonce", idAnnonce);
             params.append("idUser", userId.id);
-            await axios.post("http://localhost:8080/annoncefavoris", params, {
+            await axios.post("https://ombaikamitadyws-production-1616.up.railway.app/annoncefavoris", params, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             window.location.reload();
